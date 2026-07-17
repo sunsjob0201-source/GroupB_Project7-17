@@ -1,0 +1,10 @@
+package jp.groupb.shop.config;
+import jp.groupb.shop.model.*; import jp.groupb.shop.repository.*; import org.springframework.boot.CommandLineRunner; import org.springframework.context.annotation.*; import org.springframework.security.crypto.password.PasswordEncoder; import java.math.BigDecimal; import java.time.LocalDate;
+@Configuration public class SeedData {
+ @Bean CommandLineRunner seed(MemberRepository members,ProductRepository products,PasswordEncoder encoder){return args->{
+  if(!members.existsById("admin")){Member m=new Member();m.setMemberId("admin");m.setPassword(encoder.encode("Admin123!"));m.setName("管理者");m.setPostalCode("100-0001");m.setAddress("東京都千代田区千代田1-1");m.setPhone("03-1234-5678");m.setBirthDate(LocalDate.of(1990,1,1));m.setEmail("admin@example.com");m.setPaymentMethod(PaymentMethod.CREDIT_CARD);m.setRole(jp.groupb.shop.model.Role.ADMIN);members.save(m);}
+  if(!members.existsById("member01")){Member m=new Member();m.setMemberId("member01");m.setPassword(encoder.encode("Member123!"));m.setName("山田 太郎");m.setPostalCode("160-0022");m.setAddress("東京都新宿区新宿1-1");m.setPhone("090-1234-5678");m.setBirthDate(LocalDate.of(1995,5,10));m.setEmail("member@example.com");m.setPaymentMethod(PaymentMethod.CASH_ON_DELIVERY);m.setRole(jp.groupb.shop.model.Role.USER);members.save(m);}
+  if(products.count()==0){add(products,"ハニーフィナンシェ", "国産はちみつを使った、しっとり香ばしい焼き菓子",1280,20,"https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80");add(products,"レモンタルト","爽やかなレモンとはちみつのやさしい甘さ",1800,12,"https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=80");add(products,"ハニーギフトセット","人気の焼き菓子を詰め合わせた贈り物",2400,8,"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80");}
+ };}
+ private void add(ProductRepository r,String n,String d,int price,int stock,String url){Product p=new Product();p.setName(n);p.setDescription(d);p.setPrice(BigDecimal.valueOf(price));p.setStock(stock);p.setImageUrl(url);r.save(p);}
+}

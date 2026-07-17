@@ -370,9 +370,11 @@ select:focus {
     <% } %>
 
     <form
-        action="${pageContext.request.contextPath}/registration"
+        action="${pageContext.request.contextPath}/register"
         method="post"
         class="registrationForm">
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
         <div class="formGrid">
 
@@ -407,7 +409,7 @@ select:focus {
                 <input
                     type="text"
                     id="memberName"
-                    name="memberName"
+                    name="name"
                     value="${memberName}"
                     maxlength="50"
                     autocomplete="name"
@@ -482,7 +484,7 @@ select:focus {
                 <input
                     type="tel"
                     id="phoneNumber"
-                    name="phoneNumber"
+                    name="phone"
                     value="${phoneNumber}"
                     inputmode="tel"
                     maxlength="15"
@@ -580,19 +582,19 @@ select:focus {
                         選択してください
                     </option>
 
-                    <option value="credit">
+                    <option value="CREDIT_CARD">
                         クレジットカード
                     </option>
 
-                    <option value="bank">
+                    <option value="BANK_TRANSFER">
                         銀行振込
                     </option>
 
-                    <option value="cash_on_delivery">
+                    <option value="CASH_ON_DELIVERY">
                         代金引換
                     </option>
 
-                    <option value="convenience_store">
+                    <option value="CASH_ON_DELIVERY">
                         コンビニ払い
                     </option>
 

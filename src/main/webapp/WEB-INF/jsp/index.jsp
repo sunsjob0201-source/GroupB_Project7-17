@@ -1,68 +1,42 @@
+<!-- 最初の画面 -->
+<!-- メニュー、会員情報、管理者 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Honey Bloom</title>
-
+<title>HOME</title>
 <!-- cssファイル読み込み -->
-<link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/style.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
-<body class="loginPage">
+<body class= "mainPage">
+<div class= "mainContainer">
+<!-- 右側に画像を配置 -->
+<div class= "rightArea">
+	<img alt="メイン画像" src="${pageContext.request.contextPath}/images/main.png" class= "mainImg">
+</div>
 
-<h1 style="color:#783f04">
-    Honey Bloom
-    <img
-        alt="アイコン"
-        src="${pageContext.request.contextPath}/images/icon.png"
-        class="icon">
+</div>
+<h1 style="color:#783f04" >Honey Bloom
+<img alt="アイコン" src="${pageContext.request.contextPath}/images/icon.png" class= "icon" >
 </h1>
+<p style="color:#783f04">はちみつ香る、しあわせなお菓子時間</p>
 
-<p style="color:#783f04">
-    はちみつ香る、しあわせなお菓子時間
-</p>
-
-<!-- ログインフォーム -->
-<form action="${pageContext.request.contextPath}/Login"
-      method="post">
-
-    <label>会員ID</label>
-    <input
-        type="text"
-        name="name"
-        placeholder="会員IDを入力">
-
-    <br>
-
-    <label>パスワード</label>
-    <input
-        type="password"
-        name="pass"
-        placeholder="パスワードを入力">
-
-    <br>
-
-    <input
-        type="submit"
-        value="ログイン">
-
+<form action="${pageContext.request.contextPath}/products"method= "get">
+<button type= "submit">商品ラインナップ</button>
+</profile>
+<form action="${pageContext.request.contextPath}/form"  method= "get">
+<button type= "submit">お問い合わせ</button>
+</form>
+<form action="${pageContext.request.contextPath}/admin/products" method= "get">
+<button type= "submit">管理者画面</button>
 </form>
 
-<div>または</div>
 
-<!-- 新規会員登録 -->
-<form action="${pageContext.request.contextPath}/registration"
-      method="get">
-
-    <button type="submit">
-        新規会員登録はこちら
-    </button>
-
-</form>
 
 </body>
 </html>
+

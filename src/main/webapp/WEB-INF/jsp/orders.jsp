@@ -1,0 +1,3 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ include file="common/header.jspf" %><h1>注文履歴</h1><c:choose><c:when test="${empty orders}"><div class="empty">注文履歴はありません。</div></c:when><c:otherwise><c:forEach items="${orders}" var="o"><article class="order"><header><strong>注文 #${o.id}</strong><span>${o.orderedAt}</span><strong>合計 ¥${o.totalAmount}</strong></header><p>${o.customerName} / ${o.postalCode} ${o.address} / ${o.phone} / ${o.email} / ${o.paymentMethod.label}</p><ul><c:forEach items="${o.items}" var="i"><li>${i.productName}　¥${i.unitPrice} × ${i.quantity} = ¥${i.subtotal}</li></c:forEach></ul></article></c:forEach></c:otherwise></c:choose><%@ include file="common/footer.jspf" %>
+
