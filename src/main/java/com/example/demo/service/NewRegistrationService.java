@@ -16,4 +16,9 @@ public class NewRegistrationService {
     public boolean execute(Member member) {
         return newRegistrationDAO.create(member);
     }
+
+    // 会員ID重複チェック
+    public boolean isMemberIdDuplicate(String memberId) {
+        return newRegistrationDAO.isMemberIdDuplicate(memberId);
+    }
 }

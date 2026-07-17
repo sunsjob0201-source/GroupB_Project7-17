@@ -3,6 +3,7 @@ package com.example.demo.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.stereotype.Repository;
@@ -20,20 +21,21 @@ public class NewRegistrationDAO {
 
     public boolean create(Member member) {
 
-        try (Connection conn =
+        String sql =
+            "INSERT INTO members "
+          + "(member_id, password, member_name, postal_code, "
+          + "address, phone_number, birth_date, email, payment_method, role) "
+          + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (
+            Connection conn =
                 DriverManager.getConnection(
-                        JDBC_URL,
-                        DB_USER,
-                        DB_PASS)) {
-
-            String sql =
-                "INSERT INTO members "
-              + "(member_id, password, member_name, postal_code, "
-              + "address, phone_number, birth_date, email, payment_method) "
-              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+                    JDBC_URL,
+                    DB_USER,
+                    DB_PASS);
             PreparedStatement pStmt =
-                    conn.prepareStatement(sql);
+                conn.prepareStatement(sql)
+        ) {
 
             pStmt.setString(1, member.getMemberId());
             pStmt.setString(2, member.getPassword());
@@ -41,9 +43,10 @@ public class NewRegistrationDAO {
             pStmt.setString(4, member.getPostalCode());
             pStmt.setString(5, member.getAddress());
             pStmt.setString(6, member.getPhoneNumber());
-            pStmt.setString(7, member.getBirthDate());
+            pStmt.setDate(7, java.sql.Date.valueOf(member.getBirthDate()));
             pStmt.setString(8, member.getEmail());
             pStmt.setString(9, member.getPaymentMethod());
+            pStmt.setString(10, member.getRole());
 
             int result = pStmt.executeUpdate();
 
@@ -53,5 +56,36 @@ public class NewRegistrationDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean isMemberIdDuplicate(String memberId) {
+
+        String sql =
+            "SELECT COUNT(*) FROM members WHERE member_id = ?";
+
+        try (
+            Connection conn =
+                DriverManager.getConnection(
+                    JDBC_URL,
+                    DB_USER,
+                    DB_PASS);
+            PreparedStatement ps =
+                conn.prepareStatement(sql)
+        ) {
+
+            ps.setString(1, memberId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

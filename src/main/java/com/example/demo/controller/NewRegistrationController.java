@@ -45,6 +45,15 @@ public class NewRegistrationController {
             return "newRegistration";
         }
 
+        // 会員IDの重複チェック
+        if (newRegistrationService.isMemberIdDuplicate(memberId)) {
+            model.addAttribute(
+                    "errorMsg",
+                    "この会員IDは既に登録されています");
+
+            return "newRegistration";
+        }
+
         // Memberに値をセット
         Member member = new Member();
 
@@ -57,6 +66,7 @@ public class NewRegistrationController {
         member.setBirthDate(birthDate);
         member.setEmail(email);
         member.setPaymentMethod(paymentMethod);
+        member.setRole("USER");
 
         // Service実行
         boolean result =
