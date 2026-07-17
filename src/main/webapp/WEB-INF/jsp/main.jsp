@@ -25,13 +25,13 @@
 </h1>
 <p style="color:#783f04">はちみつ香る、しあわせなお菓子時間</p>
 
-<form action="menu" method= "get">
+<form action="${pageContext.request.contextPath}/menu"method= "get">
 <button type= "submit">商品ラインナップ</button>
 </form>
 <form action="contact" method= "get">
 <button type= "submit">お問い合わせ</button>
 </form>
-<form action="menu" method= "get">
+<form action="${pageContext.request.contextPath}/form" method= "get">
 <button type= "submit">管理者画面</button>
 </form>
 
