@@ -28,10 +28,10 @@
 <form action="${pageContext.request.contextPath}/menu"method= "get">
 <button type= "submit">商品ラインナップ</button>
 </form>
-<form action="contact" method= "get">
+<form action="${pageContext.request.contextPath}/form"  method= "get">
 <button type= "submit">お問い合わせ</button>
 </form>
-<form action="${pageContext.request.contextPath}/form" method= "get">
+<form action=admin method= "get">
 <button type= "submit">管理者画面</button>
 </form>
 
